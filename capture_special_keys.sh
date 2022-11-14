@@ -50,6 +50,3 @@ capture_keys(){
   esac
 }
 
-key="$(capture_keys)"
-echo $key
-
