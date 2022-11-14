@@ -109,5 +109,5 @@ while [[ -z "$Key" ]]; do
     Key=""
 done 
 
-echo -e "\033[38;2;255;0;255m選択されたのは${Choices[$CurrentChoice]}です\033[0m"
+echo -e "選択されたのは\033[38;2;0;0;255m${Choices[$CurrentChoice]}\033[0mです"
 
