@@ -45,25 +45,33 @@ ClearUpperLines(){
 
 # ------- From Here ------- #
 
-Choices=("雪風" "綾波" "時雨" "夕立" "江風")
+Choices=("雪風" "綾波" "時雨" "夕立" "江風" "川内" "神通" "那珂" "能代" "酒匂")
 CurrentChoice=0
 Key=""
+Ncol=4
+Nrow=3
 
 ShowMenu(){
-    for i in "${!Choices[@]}"; do
-        if [[ "$i" = "$CurrentChoice" ]]; then
-            echo " * $i: ${Choices[$i]}"
-        else
-            echo "   $i: ${Choices[$i]}"
-        fi
+  for i in `seq 0 $((Nrow - 1))`; do
+	for j in `seq 0 $((Ncol - 1))`; do
+	  N=$((i + j * Nrow))
+	  if [[ $N -ge ${#Choices[@]} ]]; then
+	    break
+	  fi
+	  if [[ "$N" = "$CurrentChoice" ]]; then
+	    echo -ne "\033[48;2;0;255;255;38;2;0;0;255m * $N: ${Choices[$N]}\033[0m"
+	    else
+		echo -ne "\033[38;2;0;255;255m   $N: ${Choices[$N]}\033[0m"
+	    fi
+	done
+	echo ""
     done
 }
 
 UpdateMenuScreen(){
-    ClearUpperLines "${#Choices[@]}"
+    ClearUpperLines "$Nrow"
     ShowMenu
 }
-
 
 ShowMenu
 
@@ -82,6 +90,18 @@ while [[ -z "$Key" ]]; do
                 UpdateMenuScreen
             fi
             ;;
+	Right)
+	  if [[ $((CurrentChoice + Nrow)) -lt ${#Choices[@]} ]]; then
+	    CurrentChoice=$((CurrentChoice + Nrow))
+	    UpdateMenuScreen
+	  fi
+	  ;;
+	Left)
+	  if [[ $((CurrentChoice - Nrow)) -ge 0 ]]; then
+	    CurrentChoice=$((CurrentChoice - Nrow))
+	    UpdateMenuScreen
+	  fi
+	  ;;
         Enter)
             break
             ;;
@@ -89,5 +109,5 @@ while [[ -z "$Key" ]]; do
     Key=""
 done 
 
-echo "選択されたのは${Choices[$CurrentChoice]}です"
+echo -e "\033[38;2;255;0;255m選択されたのは${Choices[$CurrentChoice]}です\033[0m"
 

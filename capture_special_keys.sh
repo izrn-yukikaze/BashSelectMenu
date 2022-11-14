@@ -8,7 +8,7 @@ capture_keys(){
     'h')
       echo "Left"
       ;;
-    'j')
+    'j' | $'\x09')
       echo "Down"
       ;;
     'k')
@@ -23,7 +23,7 @@ capture_keys(){
       PUSHED_KEY+="$buff"
 
       case "$PUSHED_KEY" in
-	$'\x1b\x5b\x41')
+	$'\x1b\x5b\x41' | $'\x1b\x5b\x5a')
 	  echo "Up"
 	  ;;
 	$'\x1b\x5b\x42')
