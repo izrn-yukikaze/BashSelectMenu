@@ -8,7 +8,7 @@ capture_keys(){
     'h')
       echo "Left"
       ;;
-    'j' | $'\x09')
+    'j')
       echo "Down"
       ;;
     'k')
@@ -18,12 +18,19 @@ capture_keys(){
       echo "Right"
       ;;
 
+    $'\x09')
+      echo "Tab"
+      ;;
+
     $'\x1b')
       read -r -n2 -s buff
       PUSHED_KEY+="$buff"
 
       case "$PUSHED_KEY" in
-	$'\x1b\x5b\x41' | $'\x1b\x5b\x5a')
+	$'\x1b\x5b\x5a')
+	  echo "ShiftTab"
+	  ;;
+	$'\x1b\x5b\x41')
 	  echo "Up"
 	  ;;
 	$'\x1b\x5b\x42')

@@ -59,12 +59,12 @@ ShowMenu(){
 	    break
 	  fi
 	  if [[ "$N" = "$CurrentChoice" ]]; then
-	    echo -ne "\033[48;2;0;255;255;38;2;0;0;255m * $N: ${Choices[$N]}\033[0m"
+	    printf "\033[48;2;0;255;255;38;2;0;0;255m o %2d: %s\033[0m\t" "$N" "${Choices[$N]}"
 	    else
-		echo -ne "\033[38;2;0;255;255m   $N: ${Choices[$N]}\033[0m"
+		printf "\033[38;2;0;255;255m - %2d: %s\033[0m\t" "$N" "${Choices[$N]}"
 	    fi
 	done
-	echo ""
+	printf "\n"
     done
 }
 
@@ -101,6 +101,14 @@ while [[ -z "$Key" ]]; do
 	    CurrentChoice=$((CurrentChoice - Nrow))
 	    UpdateMenuScreen
 	  fi
+	  ;;
+	Tab)
+	  CurrentChoice=$(((CurrentChoice + 1) % ${#Choices[@]}))
+	  UpdateMenuScreen
+	  ;;
+	ShiftTab)
+	  CurrentChoice=$(((CurrentChoice - 1 + ${#Choices[@]}) % ${#Choices[@]}))
+	  UpdateMenuScreen
 	  ;;
         Enter)
             break
