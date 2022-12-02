@@ -45,10 +45,10 @@ ClearUpperLines(){
 
 # ------- From Here ------- #
 
-Choices=("雪風" "綾波" "時雨" "夕立" "江風" "川内" "神通" "那珂" "阿賀野" "能代" "矢矧" "酒匂")
+Choices=("ほげ" "ふー" "ばー" "ふが" "ほげほげ" "ふーばー" "ふがふが")
 CurrentChoice=0
 Key=""
-Ncol=4
+Ncol=3
 Nrow=3
 
 ShowMenu(){
